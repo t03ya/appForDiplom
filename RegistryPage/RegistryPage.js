@@ -32,18 +32,40 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AuthPage = () =>  {
+const RegistryPage = () =>  {
   const classes = useStyles();
 
   return (
     <Container component="main" maxWidth="xs">
       <div className={classes.paper}>
         <Typography component="h1" variant="h5">
-            Вход
+            Регистрация
         </Typography>
         <form className={classes.form}>
           <Grid container spacing={2}>
-
+            <Grid item xs={12} sm={6}>
+              <TextField
+                autoComplete="fname"
+                name="firstName"
+                variant="outlined"
+                required
+                fullWidth
+                id="firstName"
+                label="Имя"
+                autoFocus
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="lastName"
+                label="Фамилия"
+                name="lastName"
+                autoComplete="lname"
+              />
+            </Grid>
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
@@ -75,12 +97,12 @@ const AuthPage = () =>  {
             color="primary"
             className={classes.submit}
           >
-            Войти
+            Зарегистрироваться
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="/registration" variant="body2">
-                Вы не зарегистрированны? Регистрация
+              <Link href="/" variant="body2">
+                Вы уже зарегистрированы?
               </Link>
             </Grid>
           </Grid>
@@ -90,4 +112,4 @@ const AuthPage = () =>  {
   );
 }
 
-export default AuthPage;
+export default RegistryPage;

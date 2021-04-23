@@ -1,6 +1,15 @@
-.container {
+.header {
     width: 100%;
-    position: relative;
-    height: 40px;
-    background-color: black;
+    height: 52px;
+    background-color: darkslategrey;
+    box-shadow: 0 4px 20px lightslategrey;
+    z-index: 4;
+}
+
+.main {
+    padding: 0 40px;
+    height: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 }
