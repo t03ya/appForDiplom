@@ -2,13 +2,15 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
     Table, 
-    TableBody,
-    TableCell,
-    TableContainer, 
-    TableHead, 
-    TablePagination, 
-    TableRow, 
-    Paper
+    TableBody as Body,
+    TableCell as Cell,
+    TableContainer as Container, 
+    TableHead as Head, 
+    TablePagination as Pagination, 
+    TableRow as Row, 
+    Paper,
+    Grid,
+    Button
 } from '@material-ui/core'
 
 function createData(name, calories, fat, carbs, protein) {
@@ -32,35 +34,36 @@ const rows = [
 ];
 
 
-const headCells = [
-  { id: 'name', numeric: false, disablePadding: true, label: 'Dessert (100g serving)' },
-  { id: 'calories', numeric: true, disablePadding: false, label: 'Calories' },
-  { id: 'fat', numeric: true, disablePadding: false, label: 'Fat (g)' },
-  { id: 'carbs', numeric: true, disablePadding: false, label: 'Carbs (g)' },
-  { id: 'protein', numeric: true, disablePadding: false, label: 'Protein (g)' },
+const headFields = [
+  { id: 'name',  label: 'Наименование автомобиля' },
+  { id: 'gosNumber',  label: 'Гос.номер' },
+  { id: 'registration',  label: 'Дата регистрации' },
+  { id: 'insuranceDate',  label: 'Срок страховки' },
+  { id: 'deadlineStatus',  label: 'Статус' },
 ];
 
 function EnhancedTableHead(props) {
 
   return (
-    <TableHead>
-      <TableRow>
-        {headCells.map((headCell) => (
-          <TableCell
-            key={headCell.id}
-            align={headCell.numeric ? 'right' : 'left'}
+    <Head>
+      <Row>
+        {headFields.map((field) => (
+          <Cell
+            key={field.id}
+            align={'left'}
           >
-              {headCell.label}
-          </TableCell>
+              {field.label}
+          </Cell>
         ))}
-      </TableRow>
-    </TableHead>
+      </Row>
+    </Head>
   );
 }
 
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
+    padding: '10px 40px'
   },
   paper: {
     width: '100%',
@@ -68,6 +71,9 @@ const useStyles = makeStyles((theme) => ({
   },
   table: {
     minWidth: 750,
+  },
+  cell: {
+      borderRight: '1px solid rgba(224, 224, 224, 1)'
   },
   visuallyHidden: {
     border: 0,
@@ -80,6 +86,13 @@ const useStyles = makeStyles((theme) => ({
     top: 20,
     width: 1,
   },
+  button: {
+    backgroundColor: 'darkslategrey',
+    '&:hover': {
+        backgroundColor: 'darkslategrey',
+        boxShadow: '0 4px 30px lightslategrey'
+    }
+  }
 }));
 
 export default function EnhancedTable() {
@@ -99,7 +112,7 @@ export default function EnhancedTable() {
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <TableContainer>
+        <Container>
           <Table
             className={classes.table}
             size={'medium'}
@@ -108,13 +121,13 @@ export default function EnhancedTable() {
               classes={classes}
               rowCount={rows.length}
             />
-            <TableBody>
+            <Body>
               {rows
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
 
                   return (
-                    <TableRow
+                    <Row
                       hover
                       onClick={() => console.log('Hi there!')}
                     //   aria-checked={}
@@ -122,22 +135,21 @@ export default function EnhancedTable() {
                       key={row.name}
                     //   selected={}
                     >
-                      <TableCell component="th" scope="row">
+                      <Cell component="th" scope="row" className={classes.cell}>
                         {row.name}
-                      </TableCell>
-                      <TableCell align="right">{row.calories}</TableCell>
-                      <TableCell align="right">{row.fat}</TableCell>
-                      <TableCell align="right">{row.carbs}</TableCell>
-                      <TableCell align="right">{row.protein}</TableCell>
-                    </TableRow>
+                      </Cell>
+                      <Cell className={classes.cell}>{row.calories}</Cell>
+                      <Cell className={classes.cell}>{row.fat}</Cell>
+                      <Cell className={classes.cell}>{row.carbs}</Cell>
+                      <Cell>{row.carbs}</Cell>
+                    </Row>
                   );
                 })}
-            </TableBody>
+            </Body>
           </Table>
-        </TableContainer>
-        <TablePagination
+        </Container>
+        <Pagination
           rowsPerPageOptions={[5, 10, 25]}
-          component="div"
           labelRowsPerPage={'Выводить по'}
           count={rows.length}
           rowsPerPage={rowsPerPage}
@@ -146,6 +158,13 @@ export default function EnhancedTable() {
           onChangeRowsPerPage={handleChangeRowsPerPage}
         />
       </Paper>
+      <Grid container justify="flex-end">
+        <Grid item>
+            <Button variant="contained" color="primary" size={'large'} className={classes.button}>
+                Добавить автомобиль
+            </Button>
+        </Grid>  
+      </Grid> 
     </div>
   );
 }
