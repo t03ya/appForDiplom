@@ -8,7 +8,7 @@ const Header = (props) => {
         <div className={s.header}>
             <div className={s.main}>
                 <Link href={'/profile'}>
-                    <Tooltip title={'Профиль'}>
+                    <Tooltip title={'Профи1ль'}>
                         <AccountIcon
                             classes={s.account} 
                             fontSize={'large'} 
